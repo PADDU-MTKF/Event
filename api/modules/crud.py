@@ -47,5 +47,5 @@ def wipeDoc(TBL,ID,value):
     docId=getDocID(TBL,ID,value)
     if not docId:
         return False,"Doc Do not exist"
-    status,e=db.deleteDocument(TBL,docId,{"deleted":True})
+    status,e=db.deleteDocument(TBL,docId)
     return status,e

@@ -5,6 +5,8 @@ from rest_framework.parsers import MultiPartParser, FormParser
 
 from .modules.login import *
 from .modules.imageDB import addImage
+from .modules.events import *
+
 from  .modules.utility import checkReq 
 
 
@@ -127,7 +129,88 @@ class UserAPI(APIView):
             return Response({"status":False,"error":f"Somthing Went Wrong : {e}"})
   
         return Response({"status":True})
-            
+     
+     
+class EventAPI(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+    
+    def get(self,request,*args, **kwargs):
+        try:
+            page=int(request.query_params.get("page"))
+            if not page:
+                page=0
+                
+        except Exception as e:
+            return Response({"status":False,"error": f"required: {str(e)}"})
+        
+        data=getAllEvents(page)
+        
+        if not data:
+            return Response({"status":False,"error":f"Somthing Went Wrong"})
+  
+        return Response({"status":True,"result":data})
+        
+        
+    def post(self,request):
+        
+        TOKEN = request.headers.get('TOKEN')
+        USERNAME = request.headers.get('USERNAME')
+        
+        print(TOKEN,USERNAME)
+        if not TOKEN or not USERNAME:
+            return Response({"status":False,"error": f"TOKEN & USERNAME: Login to add data"})
+        
+        if not validateUserToken(USERNAME,TOKEN):
+            return Response({"status":False,"error": f"TOKEN: Invalid TOKEN, Login to add data"})
+        
+        data=request.data
+        
+        
+        try:
+            title,description,startDate,endDate,coverImage=data["title"],data["description"],data["startDate"],data["endDate"],request.FILES.get("image")
+        except Exception as e:
+            return Response({"status":False,"error": f"required: {str(e)}"})
+        
+        status,req=checkReq([title,description,startDate,endDate])
+        if not status:
+            return Response(req)
+        
+        if not (coverImage):
+            return Response({"status":False,"error": f"required: image"})
+
+        file_url,e=addImage(coverImage)
+        if not file_url:
+            return Response({"status":False,"error": f"Somthing went wrong while file upload --> {e}"})
+        
+        data={"title":title,"description":description,"startDate":startDate,"endDate":endDate,"coverImage":file_url}
+        
+        status,e=addEvent(data)
+        if not status:
+            return Response({"status":False,"error":f"Somthing Went Wrong : {e}"})
+  
+        return Response({"status":True})
+    
+    def delete(self,request):
+        
+        TOKEN = request.headers.get('TOKEN')
+        USERNAME = request.headers.get('USERNAME')
+        
+        if not TOKEN or not USERNAME:
+            return Response({"status":False,"error": f"TOKEN & USERNAME: Login to add data"})
+        
+        if not validateUserToken(USERNAME,TOKEN):
+            return Response({"status":False,"error": f"TOKEN: Invalid TOKEN, Login to add data"})
+        
+        id=request.data.get("id")
+        status,e=deleteEvent(id)
+        if not status:
+            return Response({"status":False,"error":f"Somthing Went Wrong : {e}"})
+  
+        return Response({"status":True})
+    
+      
+        
+           
 
 class SimpleUploadView(APIView):
     parser_classes = (MultiPartParser, FormParser)
