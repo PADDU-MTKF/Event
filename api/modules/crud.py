@@ -24,9 +24,7 @@ def getAllDoc(TBL,page=0):
 def getDocID(TBL,key,value):
     profile=getDoc(TBL,key,value)
     docID=profile["id"] if profile else ""
-    
-    if profile and profile["deleted"]:
-        docID=""
+   
     return docID
     
 def updateDoc(TBL,ID,data):
