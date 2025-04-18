@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from corsheaders.defaults import default_headers
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,11 +21,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ko!#st6nmx*5n6fv=zwx)jpyf)#yyzh7tg=wpsq^q2-6s#5_n7"
+try:
+    
+    from dotenv import load_dotenv
+    load_dotenv()
+    DEBUG = True
+    SECRET_KEY = 'django-insecure-lwn@u+&byac8h=zg-vjo^v$wst#z7%)l2lb2jml-7_+4*c#@vi'
+    
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+except:
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    DEBUG = False
+
 
 ALLOWED_HOSTS = ["*"]
 
@@ -131,6 +139,19 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MEDIA_URL = '/media/'
+STATIC_ROOT = BASE_DIR/"staticfiles"
+MEDIA_ROOT = BASE_DIR / "media"
+
+if DEBUG:
+    STATIC_ROOT = BASE_DIR/"temp_static"    
+    STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+
+
 
 
 # Remove in production *********************************************
