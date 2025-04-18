@@ -10,7 +10,4 @@ urlpatterns = [
     path("login", views.LoginAPI.as_view()),
     path("event", views.EventAPI.as_view()),
     
-    
-   
-    path("img", views.SimpleUploadView.as_view()),
 ]

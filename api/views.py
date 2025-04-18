@@ -149,8 +149,7 @@ class EventAPI(APIView):
             return Response({"status":False,"error":f"Somthing Went Wrong"})
   
         return Response({"status":True,"result":data})
-        
-        
+            
     def post(self,request):
         
         TOKEN = request.headers.get('TOKEN')
@@ -202,7 +201,12 @@ class EventAPI(APIView):
             return Response({"status":False,"error": f"TOKEN: Invalid TOKEN, Login to add data"})
         
         id=request.data.get("id")
-        status,e=deleteEvent(id)
+        coverImage=request.data.get("coverImage")
+        
+        if not id or not coverImage:
+            return Response({"status":False,"error": f"ID and coverImage: Required ID and coverImage"})
+            
+        status,e=deleteEvent(id,coverImage)
         if not status:
             return Response({"status":False,"error":f"Somthing Went Wrong : {e}"})
   
@@ -211,27 +215,6 @@ class EventAPI(APIView):
       
         
            
-
-class SimpleUploadView(APIView):
-    parser_classes = (MultiPartParser, FormParser)
-
-    def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
-        uploaded_file = request.FILES.get("image")
-
-        if not (uploaded_file):
-            return Response({"status":False,"error": f"required: Missing fields"})
-
-        file_url,e=addImage(uploaded_file)
-        
-        if not file_url:
-            return Response({"status":False,"error": f"Somthing went wrong--> {e}"})
-            
-        return Response({"status":True})
-     
-
-    
 
 
 

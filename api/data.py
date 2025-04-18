@@ -91,7 +91,7 @@ def getDocument(collection_id,query=None):
             dic[column_name.replace("_"," ")]=value
         doc_list.append(dic)
         
-    return doc_list[::-1]
+    return doc_list
 
 
 def deleteDocument(collection_id,document_id):

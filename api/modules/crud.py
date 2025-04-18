@@ -16,8 +16,9 @@ def getDoc(TBL,key,value):
 
 def getAllDoc(TBL,page=0):
     profile=[]
-    offest=25*page
-    profile=db.getDocument(TBL,query=[Query.limit(25),Query.offset(offest)])    
+    limit=25
+    offest=limit*page
+    profile=db.getDocument(TBL,query=[Query.limit(limit),Query.offset(offest),Query.order_desc("$createdAt")])    
     return profile if profile else []
 
 def getDocID(TBL,key,value):

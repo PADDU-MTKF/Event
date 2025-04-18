@@ -107,6 +107,18 @@
               "status": false,
               "error": "required: 'name'"
             }
+      },
+      "DELETE":{
+          "REQ_DATA":[ "id","coverImage","TOKEN (in header)","USERNAME (in header)"],
+
+          "EG_TRUE_RESULT":{
+              "status": true
+            },
+
+          "EG_FALSE_RESULT":{
+              "status": false,
+              "error": "required: 'name'"
+            }
       }
   }
 
