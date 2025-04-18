@@ -140,17 +140,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-MEDIA_URL = '/media/'
-STATIC_ROOT = BASE_DIR/"staticfiles"
-MEDIA_ROOT = BASE_DIR / "media"
-
-if DEBUG:
-    STATIC_ROOT = BASE_DIR/"temp_static"    
-    STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
-
-SECURE_CROSS_ORIGIN_OPENER_POLICY = None
-
-
 
 
 
@@ -165,3 +154,9 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
     "USERNAME",  # your custom header
     "TOKEN"      # your custom header
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+}

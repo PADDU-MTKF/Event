@@ -141,7 +141,7 @@ class EventAPI(APIView):
                 page=0
                 
         except Exception as e:
-            return Response({"status":False,"error": f"required: {str(e)}"})
+            page=0
         
         data=getAllEvents(page)
         
@@ -167,11 +167,11 @@ class EventAPI(APIView):
         
         
         try:
-            title,description,startDate,endDate,coverImage=data["title"],data["description"],data["startDate"],data["endDate"],request.FILES.get("image")
+            title,description,startDate,endDate,coverImage,location=data["title"],data["description"],data["startDate"],data["endDate"],request.FILES.get("image"),data["location"]
         except Exception as e:
             return Response({"status":False,"error": f"required: {str(e)}"})
         
-        status,req=checkReq([title,description,startDate,endDate])
+        status,req=checkReq([title,description,startDate,endDate,location])
         if not status:
             return Response(req)
         
@@ -182,7 +182,7 @@ class EventAPI(APIView):
         if not file_url:
             return Response({"status":False,"error": f"Somthing went wrong while file upload --> {e}"})
         
-        data={"title":title,"description":description,"startDate":startDate,"endDate":endDate,"coverImage":file_url}
+        data={"title":title,"description":description,"startDate":startDate,"endDate":endDate,"coverImage":file_url,"location":location}
         
         status,e=addEvent(data)
         if not status:
