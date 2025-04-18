@@ -2,7 +2,11 @@
 import os
 from appwrite.query import Query
 from .. import data as db
+from datetime import datetime
+import pytz
 
+# Get IST timezone
+ist = pytz.timezone('Asia/Kolkata')
 
     
 def addDoc(TBL,data):
@@ -15,10 +19,16 @@ def getDoc(TBL,key,value):
     return profile[0] if profile else []
 
 def getAllDoc(TBL,page=0):
+    
+    # Get current date and time in IST
+    now_ist = datetime.now(ist)
+    # Get today's date in 'YYYY-MM-DD' format
+    today_ist = now_ist.date().isoformat()
+    
     profile=[]
     limit=25
     offest=limit*page
-    profile=db.getDocument(TBL,query=[Query.limit(limit),Query.offset(offest),Query.order_desc("$createdAt")])    
+    profile=db.getDocument(TBL,query=[Query.limit(limit),Query.offset(offest),Query.order_desc("$createdAt"), Query.greater_than_equal("endDate", today_ist),])    
     return profile if profile else []
 
 def getDocID(TBL,key,value):
