@@ -152,6 +152,7 @@ class EventAPI(APIView):
             page=0
             print("7")
         
+        print("getting data")
         data=getAllEvents(page)
         print("8")
         

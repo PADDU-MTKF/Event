@@ -8,7 +8,9 @@ EVENT_TBL = os.getenv("EVENT_TBL")
 
 
 def getAllEvents(page=0):
+    print("inside data")
     data=getAllDoc(EVENT_TBL,page)
+    print("got data")
     return data
 
 

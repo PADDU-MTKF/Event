@@ -21,9 +21,12 @@ def getDoc(TBL,key,value):
 def getAllDoc(TBL,page=0):
     
     # Get current date and time in IST
+    print("time1")
     now_ist = datetime.now(ist)
+    print("time2")
     # Get today's date in 'YYYY-MM-DD' format
     today_ist = now_ist.date().isoformat()
+    print("time3")
     
     profile=[]
     limit=25
