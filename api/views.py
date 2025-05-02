@@ -135,34 +135,18 @@ class EventAPI(APIView):
     parser_classes = (MultiPartParser, FormParser)
     
     def get(self,request,*args, **kwargs):
-        print("1")
         try:
-            print("2")
-            
             page=int(request.query_params.get("page"))
-            print("3")
-            
             if not page:
-                print("4")
                 page=0
-                print("5")
                 
         except Exception as e:
-            print("6")
             page=0
-            print("7")
         
-        print("getting data")
         data=getAllEvents(page)
-        print("8")
         
         if not data:
-            print("9")
-            
             return Response({"status":False,"error":f"Somthing Went Wrong"})
-
-  
-        print("10")
   
         return Response({"status":True,"result":data})
             

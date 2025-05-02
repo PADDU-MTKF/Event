@@ -21,24 +21,14 @@ def getDoc(TBL,key,value):
 def getAllDoc(TBL,page=0):
     
     # Get current date and time in IST
-    print("time1")
     now_ist = datetime.now(ist)
-    print("time2")
     # Get today's date in 'YYYY-MM-DD' format
     today_ist = now_ist.date().isoformat()
-    print("time3")
     
     profile=[]
     limit=25
-    print("time4")
-    
     offest=limit*page
-    print("time5")
-    
-    print("tdy : " +str(today_ist))
-    profile=db.getDocument(TBL,query=[Query.limit(limit),Query.offset(offest),Query.order_desc("$createdAt"), Query.greater_than_equal("endDate", today_ist),])   
-    print("time6")
-     
+    profile=db.getDocument(TBL,query=[Query.limit(limit),Query.offset(offest),Query.order_desc("$createdAt"), Query.greater_than_equal("endDate", today_ist),])    
     return profile if profile else []
 
 def getDocID(TBL,key,value):
