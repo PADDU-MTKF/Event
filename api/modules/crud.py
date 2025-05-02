@@ -30,8 +30,15 @@ def getAllDoc(TBL,page=0):
     
     profile=[]
     limit=25
+    print("time4")
+    
     offest=limit*page
-    profile=db.getDocument(TBL,query=[Query.limit(limit),Query.offset(offest),Query.order_desc("$createdAt"), Query.greater_than_equal("endDate", today_ist),])    
+    print("time5")
+    
+    print("tdy : " +str(today_ist))
+    profile=db.getDocument(TBL,query=[Query.limit(limit),Query.offset(offest),Query.order_desc("$createdAt"), Query.greater_than_equal("endDate", today_ist),])   
+    print("time6")
+     
     return profile if profile else []
 
 def getDocID(TBL,key,value):
