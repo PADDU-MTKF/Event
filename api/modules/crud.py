@@ -36,7 +36,7 @@ def getAllDoc(TBL,page=0):
     print("time5")
     
     print("tdy : " +str(today_ist))
-    profile=db.getDocument(TBL,query=[Query.limit(limit),Query.offset(offest),Query.order_desc("$createdAt")])   
+    profile=db.getDocument(TBL,query=[Query.limit(limit),Query.offset(offest),Query.order_desc("$createdAt"), Query.greater_than_equal("endDate", today_ist),])   
     print("time6")
      
     return profile if profile else []

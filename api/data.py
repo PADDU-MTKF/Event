@@ -24,8 +24,8 @@ client = Client()
 DB_ID=os.getenv('DB_ID')
 STORAGE_ID=os.getenv('STORAGE_ID')
 PROJECT_ID=os.getenv('PROJECT_ID')
-ENDPOINT= "https://appdb.lazythinkers.in/v1"
-# ENDPOINT= "https://cloud.appwrite.io/v1"
+# ENDPOINT= "https://appdb.lazythinkers.in/v1"
+ENDPOINT= "https://cloud.appwrite.io/v1"
 
 
 (client
