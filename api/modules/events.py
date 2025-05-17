@@ -20,3 +20,7 @@ def deleteEvent(ID,coverImage):
     status,e=deleteImage(coverImage)
     status,e=wipeDoc(EVENT_TBL,"$id",ID)
     return status,e
+
+def updateEvent(ID,data):
+    status,e=db.updateDocument(EVENT_TBL,ID,data)
+    return status,e

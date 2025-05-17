@@ -212,10 +212,64 @@ class EventAPI(APIView):
   
         return Response({"status":True})
     
-      
+    def put(self,request):
+        TOKEN = request.headers.get('TOKEN')
+        USERNAME = request.headers.get('USERNAME')
         
-           
+        data=request.data
+        try:
+            id,title,description,startDate,endDate,coverImage,location,pincode=data["id"],data["title"],data["description"],data["startDate"],data["endDate"],data["coverImage"],data["location"],int(data["pincode"])
+        except Exception as e:
+            return Response({"status":False,"error": f"required: {str(e)}"})
+        
+        if not TOKEN:
+            return Response({"status":False,"error": f"TOKEN: Login to edit data"})
+        
+        if not validateUserToken(USERNAME,TOKEN):
+            return Response({"status":False,"error": f"TOKEN: Invalid TOKEN, Login to edit data"})
+        
+        status,req=checkReq([title,description,startDate,endDate,coverImage,location,pincode])
 
+        if not status:
+            return Response(req)
+        
+        data={"title":title,"description":description,"startDate":startDate,"endDate":endDate,"coverImage":coverImage,"location":location,"pincode":pincode}
+        
+        status,e=updateEvent(id,data)
+        if not status:
+            return Response({"status":False,"error":f"Somthing Went Wrong : {e}"})
+  
+        return Response({"status":True})
+           
+class UpdateEvent(APIView):
+    def post(self,request):
+        TOKEN = request.headers.get('TOKEN')
+        USERNAME = request.headers.get('USERNAME')
+        
+        data=request.data
+        try:
+            id,title,description,startDate,endDate,coverImage,location,pincode=data["id"],data["title"],data["description"],data["startDate"],data["endDate"],data["coverImage"],data["location"],int(data["pincode"])
+        except Exception as e:
+            return Response({"status":False,"error": f"required: {str(e)}"})
+        
+        if not TOKEN:
+            return Response({"status":False,"error": f"TOKEN: Login to edit data"})
+        
+        if not validateUserToken(USERNAME,TOKEN):
+            return Response({"status":False,"error": f"TOKEN: Invalid TOKEN, Login to edit data"})
+        
+        status,req=checkReq([title,description,startDate,endDate,coverImage,location,pincode])
+
+        if not status:
+            return Response(req)
+        
+        data={"title":title,"description":description,"startDate":startDate,"endDate":endDate,"coverImage":coverImage,"location":location,"pincode":pincode}
+        
+        status,e=updateEvent(id,data)
+        if not status:
+            return Response({"status":False,"error":f"Somthing Went Wrong : {e}"})
+  
+        return Response({"status":True})
 
 
 
