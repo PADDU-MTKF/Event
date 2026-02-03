@@ -57,7 +57,7 @@ This API is designed to:
 ---
 
 
-# 📚 API Endpoint Reference
+## 📚 API Endpoint Reference
 
 | Endpoint                | Method | Headers Required        | Request Body / Params                                                                 | Description |
 |-------------------------|--------|------------------------|--------------------------------------------------------------------------------------|-------------|
