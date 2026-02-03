@@ -9,14 +9,14 @@ This API is designed to be used by frontend clients or other services.
 
 ## ✨ Features
 
-- 🔐 **User authentication** via TOKEN
-- 👤 **User profile management** (create, read, update, delete)
-- 🎉 **Event management** with image uploads
-- 📄 Full **CRUD support** for events
-- 🧩 **Validation** for required fields and types
-- 🛠️ Modular design (login, events, image storage)
-- ⚡ RESTful API endpoints using **Django REST Framework**
-- 🖼️ Handles **file uploads** (cover images) with automatic URL handling
+- **User authentication** via TOKEN
+- **User profile management** (create, read, update, delete)
+- **Event management** with image uploads
+- Full **CRUD support** for events
+- **Validation** for required fields and types
+- Modular design (login, events, image storage)
+- RESTful API endpoints using **Django REST Framework**
+- Handles **file uploads** (cover images) with automatic URL handling
 
 ---
 
@@ -47,8 +47,12 @@ This API is designed to:
 ---
 
 ## 🛠️ Tech Stack
+<p align="left">
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" width="32" />
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/django/django-plain.svg" width="32" />
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/appwrite/appwrite-original.svg" width="32" />
+</p>
 
-### Backend
 - **Python**
 - **Django REST Framework**
 - **Appwrite** (Database & File Storage)
